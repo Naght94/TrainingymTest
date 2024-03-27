@@ -43,7 +43,6 @@ namespace Trainingym.Bussines
             {
                 return null;
             }
-            //_context.Entry(memberDB).State = EntityState.Modified;
             memberDB.MemberName = member.MemberName;
             await _context.SaveChangesAsync();
 
