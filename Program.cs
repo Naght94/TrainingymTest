@@ -1,6 +1,13 @@
+using Microsoft.EntityFrameworkCore;
+using Trainingym.Context;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+var connectionString = builder.Configuration.GetConnectionString("Connection");
+builder.Services.AddDbContext<TrainingymContext>(options => 
+options.UseSqlServer(connectionString)
+);
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
