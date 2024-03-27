@@ -1,4 +1,6 @@
 using Microsoft.EntityFrameworkCore;
+using Trainingym.Bussines;
+using Trainingym.Bussines.Interface;
 using Trainingym.Context;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,7 +10,7 @@ var connectionString = builder.Configuration.GetConnectionString("Connection");
 builder.Services.AddDbContext<TrainingymContext>(options => 
 options.UseSqlServer(connectionString)
 );
-
+builder.Services.AddScoped<IMember, MemberBussines>();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
