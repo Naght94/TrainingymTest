@@ -28,9 +28,7 @@ public partial class TrainingymContext : DbContext
         {
             entity.ToTable("Member");
 
-            entity.Property(e => e.MemberId)
-                .ValueGeneratedNever()
-                .HasColumnName("member_id");
+            entity.Property(e => e.MemberId).HasColumnName("member_id");
             entity.Property(e => e.MemberName)
                 .HasMaxLength(500)
                 .IsUnicode(false)
@@ -41,14 +39,10 @@ public partial class TrainingymContext : DbContext
         {
             entity.ToTable("Order");
 
-            entity.Property(e => e.OrderId)
-                .ValueGeneratedNever()
-                .HasColumnName("order_id");
+            entity.Property(e => e.OrderId).HasColumnName("order_id");
             entity.Property(e => e.FkMemberid).HasColumnName("fk_memberid");
             entity.Property(e => e.FkProductid).HasColumnName("fk_productid");
-            entity.Property(e => e.OrderDateorder)
-                .HasPrecision(0)
-                .HasColumnName("order_dateorder");
+            entity.Property(e => e.OrderDateorder).HasColumnName("order_dateorder");
 
             entity.HasOne(d => d.FkMember).WithMany(p => p.Orders)
                 .HasForeignKey(d => d.FkMemberid)
@@ -65,9 +59,7 @@ public partial class TrainingymContext : DbContext
         {
             entity.ToTable("Product");
 
-            entity.Property(e => e.ProductId)
-                .ValueGeneratedNever()
-                .HasColumnName("product_id");
+            entity.Property(e => e.ProductId).HasColumnName("product_id");
             entity.Property(e => e.ProductName)
                 .HasMaxLength(500)
                 .IsUnicode(false)

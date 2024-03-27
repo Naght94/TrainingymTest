@@ -5,7 +5,10 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Trainingym.Bussines;
+using Trainingym.Bussines.Interface;
 using Trainingym.Context;
+using Trainingym.DTO;
 using Trainingym.Models;
 
 namespace Trainingym.Controllers
@@ -14,109 +17,79 @@ namespace Trainingym.Controllers
     [ApiController]
     public class MembersController : ControllerBase
     {
-        private readonly TrainingymContext _context;
+        
+        private readonly IMember _member;
 
-        public MembersController(TrainingymContext context)
+        public MembersController(IMember member)
         {
-            _context = context;
+            _member = member;
         }
 
-        // GET: api/Members
+        //// GET: api/Members
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Member>>> GetMembers()
+        public async Task<ActionResult<IEnumerable<ReadMemberDTO>>> GetMembers()
         {
-            return await _context.Members.ToListAsync();
+            IEnumerable<Member> members = await _member.GetAllMembersAsync();
+            List<ReadMemberDTO> membersDTO = new List<ReadMemberDTO>();
+            foreach (var item in members)
+            {
+                ReadMemberDTO member = new ReadMemberDTO() {
+                Id = item.MemberId,
+                MemberName = item.MemberName
+                };
+                membersDTO.Add(member);
+            }
+            return Ok(membersDTO);
         }
 
         // GET: api/Members/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Member>> GetMember(long id)
+        public async Task<ActionResult<ReadMemberDTO>> GetMember(long id)
         {
-            var member = await _context.Members.FindAsync(id);
-
-            if (member == null)
+            Member member = await _member.GetMemberById(id);
+            if (member != null)
             {
-                return NotFound();
-            }
+                ReadMemberDTO memberDto = new ReadMemberDTO()
+                {
+                    Id = member.MemberId,
+                    MemberName = member.MemberName
+                };
 
-            return member;
+                return Ok(memberDto);
+            }
+            return BadRequest("Member not found/Miembro no encontrado");
         }
 
-        // PUT: api/Members/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        //// PUT: api/Members/5
+        
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutMember(long id, Member member)
+        public async Task<IActionResult> PutMember(long id, UpdateMemberDTO member)
         {
-            if (id != member.MemberId)
+            Member memberDB = await _member.UpdateMemberAsync(id, member);
+            if (memberDB == null)
             {
-                return BadRequest();
+                return BadRequest("Id not found");
             }
-
-            _context.Entry(member).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!MemberExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
+            
+            return Ok(memberDB);
+            
         }
 
         // POST: api/Members
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Member>> PostMember(Member member)
+        public async Task<ActionResult<Member>> PostMember(CreateMemberDTO member)
         {
-            _context.Members.Add(member);
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateException)
-            {
-                if (MemberExists(member.MemberId))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return CreatedAtAction("GetMember", new { id = member.MemberId }, member);
+            await _member.CreaterMember(member);
+            return Ok(CreatedAtAction("Welcome new member", member.MemberName));
         }
 
         // DELETE: api/Members/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteMember(long id)
         {
-            var member = await _context.Members.FindAsync(id);
-            if (member == null)
-            {
-                return NotFound();
-            }
-
-            _context.Members.Remove(member);
-            await _context.SaveChangesAsync();
-
+            await _member.DeleteMember(id);
             return NoContent();
-        }
-
-        private bool MemberExists(long id)
-        {
-            return _context.Members.Any(e => e.MemberId == id);
         }
     }
 }
