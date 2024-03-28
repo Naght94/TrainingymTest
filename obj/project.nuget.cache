@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "0LAOCEwF32kx4ua+3h8slzRjYiA0TCXkbOJE/alQquP9n/MOD0uvowktoYsCT3m/GNUoNJltniuTbhsNBPYjrQ==",
+  "dgSpecHash": "3meYGenUGYWZ88DcI+ocXMbzTGY/qNo/P1K103C7ZKhriwtaLtuo/OQiC5cc1VyemvmuzgIwm6bKw4PT+qI1TQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\Dexter\\source\\repos\\Trainingym\\Trainingym\\Trainingym.csproj",
   "expectedPackageFiles": [
@@ -127,6 +127,7 @@
     "C:\\Users\\Dexter\\.nuget\\packages\\nuget.projectmodel\\6.9.1\\nuget.projectmodel.6.9.1.nupkg.sha512",
     "C:\\Users\\Dexter\\.nuget\\packages\\nuget.protocol\\6.9.1\\nuget.protocol.6.9.1.nupkg.sha512",
     "C:\\Users\\Dexter\\.nuget\\packages\\nuget.versioning\\6.9.1\\nuget.versioning.6.9.1.nupkg.sha512",
+    "C:\\Users\\Dexter\\.nuget\\packages\\restsharp\\110.2.0\\restsharp.110.2.0.nupkg.sha512",
     "C:\\Users\\Dexter\\.nuget\\packages\\swashbuckle.aspnetcore\\6.5.0\\swashbuckle.aspnetcore.6.5.0.nupkg.sha512",
     "C:\\Users\\Dexter\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.5.0\\swashbuckle.aspnetcore.swagger.6.5.0.nupkg.sha512",
     "C:\\Users\\Dexter\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.5.0\\swashbuckle.aspnetcore.swaggergen.6.5.0.nupkg.sha512",
