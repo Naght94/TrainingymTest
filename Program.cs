@@ -13,6 +13,7 @@ options.UseSqlServer(connectionString)
 builder.Services.AddScoped<IMember, MemberBussines>();
 builder.Services.AddScoped<IProduct, ProductBussines>();
 builder.Services.AddScoped<IOrder, OrderBussines>();
+builder.Services.AddScoped<IRestClientLocal, RestClientBussines>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
