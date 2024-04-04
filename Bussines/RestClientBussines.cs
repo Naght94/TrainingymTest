@@ -66,7 +66,7 @@ namespace Trainingym.Bussines
             using (var client = new HttpClient())
             {
                 var endpoint = new Uri("https://jsonplaceholder.typicode.com/comments");
-                var result = client.GetAsync(endpoint).Result;
+                var result = await client.GetAsync(endpoint);
                 var json = result.Content.ReadAsStringAsync().Result;
                 List<ApiCallDTO> apiCallDTOs = JsonConvert.DeserializeObject<List<ApiCallDTO>>(json);
                 return apiCallDTOs;
